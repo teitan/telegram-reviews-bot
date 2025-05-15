@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=bot_user
+      - POSTGRES_PASSWORD=bot_password
+      - POSTGRES_DB=company_reviews
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:
