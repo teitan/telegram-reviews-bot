@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: company-reviews-bot
+    env: docker
+    plan: free
+    region: frankfurt # Европа, можно изменить на oregon (США) или другой
+    envVars:
+      - key: BOT_TOKEN
+        value: ${BOT_TOKEN}
+      - key: DATABASE_URL
+        fromDatabase:
+          name: company_reviews_db
+          property: connectionString
+    healthCheckPath: /
+
+databases:
+  - name: company_reviews_db
+    plan: free
+    region: frankfurt
